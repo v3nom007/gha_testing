@@ -1,0 +1,18 @@
+name: Creating Event Trigger for Issues
+on:
+  issues:
+    types: [opened, edited, reopened, closed]
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create issue comment
+        run: |
+          echo "Creating an issue comment..."
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
+          echo "Issue State: ${{ github.event.issue.state }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
